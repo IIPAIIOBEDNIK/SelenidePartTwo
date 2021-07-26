@@ -2,6 +2,7 @@ package withPOP;
 
 
 import com.codeborne.selenide.Configuration;
+import com.github.javafaker.Faker;
 import components.Calendar;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,11 +14,16 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static data.TestData.*;
 
-public class StudentRegistrationFormPOP {
+public class StudentRegistrationFormTestPOP {
 
     RegistrationPage registrationPage = new RegistrationPage();
 
+    Faker faker = new Faker();
+    String firstName = faker.name().firstName();
+    String lastName = faker.name().lastName();
+    String email = faker.internet().emailAddress();
     @BeforeAll
     static void setup() {
         Configuration.baseUrl = "https://demoqa.com";
@@ -28,27 +34,27 @@ public class StudentRegistrationFormPOP {
     void PositiveTest() {
         registrationPage.openPage();
 
-        registrationPage.typeFirstName("Alex")
-                .typeLastName("Pereponov")
-                .typeEmail("pereponov_alexander@mail.ru")
-                .SelectGender("Male")
-                .typePhone("9169163660")
+        registrationPage.typeFirstName(firstName)
+                .typeLastName(lastName)
+                .typeEmail(email)
+                .SelectGender(gender)
+                .typePhone(phoneNumber)
                 .setDate("27", "March", "1998")
-                .setSubject("Maths")
-                .setHobbi("Music")
-                .uploadPict("src/test/resources/road.jpg")
+                .setSubject(subject)
+                .setHobbi(hobbi)
+                .uploadPict(dirPicture)
                 .setAdress("Russia", "NCR", "Noida")
                 .clickSubmit();
 
         //Assertions
         registrationPage.checkResultTitle()
-                .checkResultValue("Alex Pereponov")
-                .checkResultValue("pereponov_alexander@mail.ru")
-                .checkResultValue("Male")
-                .checkResultValue("9169163660")
+                .checkResultValue(firstName + " " + lastName)
+                .checkResultValue(email)
+                .checkResultValue(gender)
+                .checkResultValue(phoneNumber)
                 .checkResultValue("27 March,1998")
-                .checkResultValue("Maths")
-                .checkResultValue("Music")
+                .checkResultValue(subject)
+                .checkResultValue(hobbi)
                 .checkResultValue("road.jpg")
                 .checkResultValue("Russia")
                 .checkResultValue("NCR Noida");
