@@ -26,13 +26,13 @@ public class StudentRegistrationFormTestPOP {
     }
 
     @Test
-    void PositiveTest() {
+    void positiveTest() {
         registrationPage.openPage();
 
         registrationPage.typeFirstName(firstName)
                 .typeLastName(lastName)
                 .typeEmail(email)
-                .SelectGender(gender)
+                .selectGender(gender)
                 .typePhone(phoneNumber)
                 .setDate("27", "March", "1998")
                 .setSubject(subject)

@@ -41,7 +41,7 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage SelectGender(String gender){
+    public RegistrationPage selectGender(String gender){
         $("#genterWrapper").$(byText(gender)).click();
 
         return this;
